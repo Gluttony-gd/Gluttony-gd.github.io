@@ -37,70 +37,154 @@ window.SITE_DATA = {
 // нарядов (top/body/legs — цвета деталей одежды, которые переключаются).
 sins: {
   title: "Семь грехов",
-  subtitle: "Нажмите на манекен, чтобы сменить наряд",
+  subtitle: "Нажмите на манекен, чтобы сменить детали одежды",
   items: [
     {
       name: "Гордыня",
       desc: "Роскошь и величие: бархат, золотая вышивка, королевские силуэты.",
-      outfits: [
-        { top: "#6b2d2d", body: "#d4af37", legs: "#2f2f3a", label: "Королевский" },
-        { top: "#1f1f2a", body: "#c9a24b", legs: "#1a1a24", label: "Императорский" },
-        { top: "#3d1f2e", body: "#e5c76b", legs: "#26262f", label: "Гофман" }
-      ]
+      parts: {
+        top: { label: "Верх", options: [
+          { name: "Королевский", color: "#6b2d2d" },
+          { name: "Императорский", color: "#1f1f2a" },
+          { name: "Гофман", color: "#3d1f2e" }
+        ]},
+        bottom: { label: "Низ", options: [
+          { name: "Золотой", color: "#d4af37" },
+          { name: "Старый", color: "#c9a24b" },
+          { name: "Светлый", color: "#e5c76b" }
+        ]},
+        accent: { label: "Рукава", options: [
+          { name: "Тёмный", color: "#2f2f3a" },
+          { name: "Чёрный", color: "#1a1a24" },
+          { name: "Тени", color: "#26262f" }
+        ]}
+      }
     },
     {
       name: "Жадность",
       desc: "Богатая фактура, металлик, дорогие ткани и игра света.",
-      outfits: [
-        { top: "#4b3a1e", body: "#d4af37", legs: "#22222b", label: "Золото" },
-        { top: "#3a3a4a", body: "#c0c0c0", legs: "#22222b", label: "Серебро" },
-        { top: "#5a4020", body: "#8a7a4a", legs: "#2a2a33", label: "Бронза" }
-      ]
+      parts: {
+        top: { label: "Верх", options: [
+          { name: "Латунь", color: "#4b3a1e" },
+          { name: "Сталь", color: "#3a3a4a" },
+          { name: "Бронза", color: "#5a4020" }
+        ]},
+        bottom: { label: "Низ", options: [
+          { name: "Золото", color: "#d4af37" },
+          { name: "Серебро", color: "#c0c0c0" },
+          { name: "Позолота", color: "#8a7a4a" }
+        ]},
+        accent: { label: "Рукава", options: [
+          { name: "Тьма", color: "#22222b" },
+          { name: "Уголь", color: "#22222b" },
+          { name: "Графит", color: "#2a2a33" }
+        ]}
+      }
     },
     {
       name: "Зависть",
       desc: "Изумрудные тона, глубокие зелёные оттенки, обтягивающие формы.",
-      outfits: [
-        { top: "#0f3d2e", body: "#1e7a4d", legs: "#0c2f24", label: "Изумруд" },
-        { top: "#1a5c3a", body: "#37b96a", legs: "#104a2e", label: "Малахит" },
-        { top: "#0e4d3a", body: "#2fa56e", legs: "#0a3a28", label: "Нефрит" }
-      ]
+      parts: {
+        top: { label: "Верх", options: [
+          { name: "Лес", color: "#0f3d2e" },
+          { name: "Хвоя", color: "#1a5c3a" },
+          { name: "Нефрит", color: "#0e4d3a" }
+        ]},
+        bottom: { label: "Низ", options: [
+          { name: "Изумруд", color: "#1e7a4d" },
+          { name: "Малахит", color: "#37b96a" },
+          { name: "Яркий", color: "#2fa56e" }
+        ]},
+        accent: { label: "Рукава", options: [
+          { name: "Глубина", color: "#0c2f24" },
+          { name: "Мох", color: "#104a2e" },
+          { name: "Папоротник", color: "#0a3a28" }
+        ]}
+      }
     },
     {
       name: "Гнев",
       desc: "Агрессивные силуэты, кожа, острые линии и алые акценты.",
-      outfits: [
-        { top: "#7a1414", body: "#2a2a33", legs: "#1c1c24", label: "Ярость" },
-        { top: "#5c0e0e", body: "#111118", legs: "#101018", label: "Ад" },
-        { top: "#8a1a1a", body: "#3a1010", legs: "#23232b", label: "Пламя" }
-      ]
+      parts: {
+        top: { label: "Верх", options: [
+          { name: "Пламя", color: "#7a1414" },
+          { name: "Ад", color: "#5c0e0e" },
+          { name: "Кровь", color: "#8a1a1a" }
+        ]},
+        bottom: { label: "Низ", options: [
+          { name: "Кожа", color: "#2a2a33" },
+          { name: "Сажа", color: "#111118" },
+          { name: "Уголь", color: "#3a1010" }
+        ]},
+        accent: { label: "Рукава", options: [
+          { name: "Тьма", color: "#1c1c24" },
+          { name: "Ночь", color: "#101018" },
+          { name: "Дым", color: "#23232b" }
+        ]}
+      }
     },
     {
       name: "Похоть",
       desc: "Чувственность: кружево, струящиеся ткани, откровенные линии.",
-      outfits: [
-        { top: "#4a0e2e", body: "#c2457a", legs: "#2a0f1e", label: "Бархат" },
-        { top: "#5c1438", body: "#e05a90", legs: "#331126", label: "Роза" },
-        { top: "#3a0a28", body: "#b03a6a", legs: "#24091c", label: "Винный" }
-      ]
+      parts: {
+        top: { label: "Верх", options: [
+          { name: "Бархат", color: "#4a0e2e" },
+          { name: "Роза", color: "#5c1438" },
+          { name: "Вина", color: "#3a0a28" }
+        ]},
+        bottom: { label: "Низ", options: [
+          { name: "Пион", color: "#c2457a" },
+          { name: "Фуксия", color: "#e05a90" },
+          { name: "Малина", color: "#b03a6a" }
+        ]},
+        accent: { label: "Рукава", options: [
+          { name: "Сливки", color: "#2a0f1e" },
+          { name: "Марсала", color: "#331126" },
+          { name: "Гренадин", color: "#24091c" }
+        ]}
+      }
     },
     {
       name: "Чревоугодие",
       desc: "Многослойность, свободный крой, комфорт и мягкость.",
-      outfits: [
-        { top: "#4a3a2a", body: "#6b5638", legs: "#3a2e22", label: "Тёплый" },
-        { top: "#3a3040", body: "#5a4e62", legs: "#2e2636", label: "Уютный" },
-        { top: "#523c28", body: "#7a5c3a", legs: "#3e2f20", label: "Шоколад" }
-      ]
+      parts: {
+        top: { label: "Верх", options: [
+          { name: "Карамель", color: "#4a3a2a" },
+          { name: "Слива", color: "#3a3040" },
+          { name: "Шоколад", color: "#523c28" }
+        ]},
+        bottom: { label: "Низ", options: [
+          { name: "Глина", color: "#6b5638" },
+          { name: "Мята", color: "#5a4e62" },
+          { name: "Орех", color: "#7a5c3a" }
+        ]},
+        accent: { label: "Рукава", options: [
+          { name: "Корица", color: "#3a2e22" },
+          { name: "Табак", color: "#2e2636" },
+          { name: "Какао", color: "#3e2f20" }
+        ]}
+      }
     },
     {
       name: "Лень",
       desc: "Оверсайз, мягкие трикотажные ткани, расслабленность.",
-      outfits: [
-        { top: "#3a3a44", body: "#5a5a6a", legs: "#2e2e38", label: "Серый" },
-        { top: "#45404a", body: "#6b6574", legs: "#333038", label: "Графит" },
-        { top: "#2f2f3a", body: "#504c5c", legs: "#262632", label: "Дымка" }
-      ]
+      parts: {
+        top: { label: "Верх", options: [
+          { name: "Камень", color: "#3a3a44" },
+          { name: "Графит", color: "#45404a" },
+          { name: "Дымка", color: "#2f2f3a" }
+        ]},
+        bottom: { label: "Низ", options: [
+          { name: "Серебро", color: "#5a5a6a" },
+          { name: "Пепел", color: "#6b6574" },
+          { name: "Сизаль", color: "#504c5c" }
+        ]},
+        accent: { label: "Рукава", options: [
+          { name: "Тень", color: "#2e2e38" },
+          { name: "Уголь", color: "#333038" },
+          { name: "Ночь", color: "#262632" }
+        ]}
+      }
     }
   ]
 },
@@ -109,7 +193,7 @@ sins: {
   faq: {
     title: "Частые вопросы",
     items: [
-      { q: "Как менять наряды на манекенах?", a: "Просто нажмите на цветную точку под манекеном — одежда на нём сменится на соответствующий наряд. У каждого греха несколько вариантов стиля." },
+      { q: "Как менять одежду на манекенах?", a: "Нажмите на манекен — откроется окно, в котором можно выбрать отдельно верх, низ и рукава/акцент из нескольких вариантов. Изменения применяются сразу." },
       { q: "Как сделать заказ?", a: "Напишите нам на почту или позвоните — поможем подобрать капсулу и оформить заказ." },
       { q: "Есть ли примерка?", a: "Да, возможна примерка и возврат в течение 14 дней. Подробности уточняйте при заказе." }
     ]

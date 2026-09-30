@@ -86,30 +86,38 @@
 
   function buildSinsEditor(containerId, sins) {
     var container = document.getElementById(containerId);
+    var PART_KEYS = ["top", "bottom", "accent"];
+    var PART_LABELS = { top: "Верх", bottom: "Низ", accent: "Рукава/акцент" };
     function render() {
       var h = "";
       sins.forEach(function (sin, si) {
-        var outfits = sin.outfits
-          .map(function (o, oi) {
+        var partsHtml = PART_KEYS.map(function (pk) {
+          var part = sin.parts[pk];
+          if (!part) return "";
+          var opts = part.options.map(function (o, oi) {
             return (
-              '<div class="outfit-edit" data-si="' + si + '" data-oi="' + oi + '">' +
-              '<div class="field-row">' +
-              '<input data-f="label" value="' + esc(o.label) + '" placeholder="Название наряда">' +
-              '<input data-f="top" value="' + esc(o.top) + '" placeholder="Верх (#aabbcc)">' +
-              '<input data-f="body" value="' + esc(o.body) + '" placeholder="Низ (#ddeeff)">' +
-              '<button class="remove-btn" data-del="' + si + ':' + oi + '">×</button>' +
-              "</div>" +
+              '<div class="part-edit" data-si="' + si + '" data-pk="' + pk + '" data-oi="' + oi + '">' +
+              '<input data-f="name" value="' + esc(o.name) + '" placeholder="Имя">' +
+              '<input data-f="color" value="' + esc(o.color) + '" placeholder="#aabbcc">' +
+              '<button class="remove-btn" data-del-part="' + si + ':' + pk + ':' + oi + '">×</button>' +
               "</div>"
             );
-          })
-          .join("");
+          }).join("");
+          return (
+            '<div class="part-group">' +
+            '<label class="mini-label">' + esc(PART_LABELS[pk]) + "</label>" +
+            opts +
+            '<button class="add-btn" data-addopt="' + si + ':' + pk + '">+ Вариант</button>' +
+            "</div>"
+          );
+        }).join("");
+
         h +=
           '<div class="sin-item-edit">' +
           '<div class="field"><label>Название греха</label><input data-f="name" data-si="' + si + '" value="' + esc(sin.name) + '"></div>' +
           '<div class="field"><label>Описание</label><textarea data-f="desc" data-si="' + si + '">' + esc(sin.desc) + "</textarea></div>" +
-          '<label class="mini-label">Наряды (верх = цвет точки)</label>' +
-          outfits +
-          '<button class="add-btn" data-addoutfit="' + si + '">+ Наряд</button>' +
+          '<label class="mini-label">Детали одежды</label>' +
+          partsHtml +
           '<button class="remove-btn" data-del-sin="' + si + '">Удалить грех</button>' +
           "</div>";
       });
@@ -118,20 +126,26 @@
 
       container.querySelectorAll("input[data-si], textarea[data-si]").forEach(function (el) {
         el.addEventListener("input", function () {
-          var sin = sins[el.dataset.si];
-          if (el.hasAttribute("data-f") && !el.hasAttribute("data-oi")) sin[el.dataset.f] = el.value;
+          if (el.hasAttribute("data-si") && !el.hasAttribute("data-pk")) sins[el.dataset.si][el.dataset.f] = el.value;
         });
       });
-      container.querySelectorAll(".outfit-edit input").forEach(function (el) {
+      container.querySelectorAll(".part-edit input").forEach(function (el) {
         el.addEventListener("input", function () {
-          var p = el.closest(".outfit-edit").dataset;
-          sins[p.si].outfits[p.oi][el.dataset.f] = el.value;
+          var d = el.closest(".part-edit").dataset;
+          sins[d.si].parts[d.pk].options[d.oi][el.dataset.f] = el.value;
         });
       });
-      container.querySelectorAll("[data-del]").forEach(function (b) {
+      container.querySelectorAll("[data-del-part]").forEach(function (b) {
         b.addEventListener("click", function () {
-          var p = b.dataset.del.split(":");
-          sins[p[0]].outfits.splice(Number(p[1]), 1);
+          var p = b.dataset.delPart.split(":");
+          sins[p[0]].parts[p[1]].options.splice(Number(p[2]), 1);
+          render();
+        });
+      });
+      container.querySelectorAll("[data-addopt]").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var p = b.dataset.addopt.split(":");
+          sins[p[0]].parts[p[1]].options.push({ name: "Вариант", color: "#888888" });
           render();
         });
       });
@@ -141,14 +155,15 @@
           render();
         });
       });
-      container.querySelectorAll("[data-addoutfit]").forEach(function (b) {
-        b.addEventListener("click", function () {
-          sins[b.dataset.addoutfit].outfits.push({ label: "Наряд", top: "#888", body: "#999", legs: "#555" });
-          render();
-        });
-      });
       document.getElementById("add_sin").addEventListener("click", function () {
-        sins.push({ name: "Грех", desc: "Описание", outfits: [{ label: "Наряд", top: "#888", body: "#999", legs: "#555" }] });
+        sins.push({
+          name: "Грех", desc: "Описание",
+          parts: {
+            top: { label: "Верх", options: [{ name: "Верх", color: "#777777" }] },
+            bottom: { label: "Низ", options: [{ name: "Низ", color: "#888888" }] },
+            accent: { label: "Рукава", options: [{ name: "Рукава", color: "#666666" }] }
+          }
+        });
         render();
       });
     }

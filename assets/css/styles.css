@@ -124,6 +124,13 @@ header.site-header {
 }
 .mannequin:hover { transform: scale(1.05); }
 .mannequin svg { display: block; width: 100%; height: auto; }
+.mannequin-hint {
+  margin-top: 8px;
+  font-size: 0.72rem;
+  color: var(--muted);
+  opacity: 0.85;
+  letter-spacing: 0.3px;
+}
 .sin-name {
   font-size: 1.25rem;
   font-weight: 800;
@@ -131,25 +138,83 @@ header.site-header {
   letter-spacing: 0.5px;
   color: var(--text);
 }
-.sin-desc { color: var(--muted); font-size: 0.92rem; line-height: 1.4; margin: 0 0 12px; }
-.outfit-label { color: var(--primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 10px; min-height: 1.2em; }
-.outfit-dots { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
-.outfit-dot {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  border: 2px solid rgba(212, 175, 55, 0.5);
-  background: transparent;
-  cursor: pointer;
-  padding: 0;
-  transition: transform 0.15s, border-color 0.15s;
-}
-.outfit-dot:hover { transform: scale(1.15); }
-.outfit-dot.active { border-color: var(--primary); box-shadow: 0 0 10px rgba(212, 175, 55, 0.6); }
+.sin-desc { color: var(--muted); font-size: 0.92rem; line-height: 1.4; margin: 0; }
 
 @media (max-width: 1000px) { .sins-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 760px) { .sins-grid { grid-template-columns: repeat(2, 1fr); } .mannequin { width: 120px; } }
 @media (max-width: 460px) { .sins-grid { grid-template-columns: 1fr; } }
+
+/* ==========================================================
+   МОДАЛЬНОЕ ОКНО выбора деталей одежды
+   ========================================================== */
+.outfit-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+.outfit-modal.show { visibility: visible; opacity: 1; }
+.outfit-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(2px);
+}
+.outfit-panel {
+  position: relative;
+  width: min(420px, 92vw);
+  max-height: 86vh;
+  overflow-y: auto;
+  background: #17151d;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 18px;
+  padding: 28px 24px 24px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  color: var(--text);
+}
+.outfit-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-size: 1.9rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.outfit-close:hover { color: var(--text); }
+.outfit-sin-title { margin: 0 0 4px; font-size: 1.35rem; color: var(--primary); }
+.outfit-sub { color: var(--muted); margin: 0 0 16px; font-size: 0.9rem; }
+.part-block { margin-bottom: 18px; }
+.part-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+}
+.part-opts { display: flex; gap: 10px; flex-wrap: wrap; }
+.part-opt {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+.part-opt:hover { transform: scale(1.12); }
+.part-opt.active {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 35%, transparent), 0 0 12px rgba(212, 175, 55, 0.5);
+}
 
 /* FAQ */
 .faq-item { max-width: 720px; margin: 0 auto 14px; }
@@ -246,7 +311,7 @@ footer.site-footer { text-align: center; padding: 30px 20px; color: var(--muted)
 }
 .field textarea { min-height: 80px; resize: vertical; }
 
-.service-item-edit, .faq-item-edit, .field-row, .sin-item-edit, .outfit-edit {
+.service-item-edit, .faq-item-edit, .field-row, .sin-item-edit, .outfit-edit, .part-group, .part-edit {
   background: #1d1b25;
   border-radius: 10px;
   padding: 12px;
@@ -258,6 +323,9 @@ footer.site-footer { text-align: center; padding: 30px 20px; color: var(--muted)
 .sins_editor .sin-item-edit { border-left: 3px solid var(--primary); }
 .mini-label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--muted); margin: 6px 0 6px; }
 .outfit-edit .field-row input { min-width: 0; }
+.part-group { background: #1f1d28; }
+.part-edit { display: flex; gap: 6px; align-items: center; padding: 8px; margin-bottom: 8px; }
+.part-edit input { flex: 1; min-width: 0; }
 
 .admin-foot {
   padding: 14px 18px;
