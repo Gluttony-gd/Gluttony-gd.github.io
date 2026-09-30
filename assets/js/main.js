@@ -47,15 +47,23 @@
         return (
           '<div class="sin-card">' +
           '<div class="mannequin" data-sin="' + sinIndex + '" role="button" title="Сменить одежду">' +
-          '<svg viewBox="0 0 120 240" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-          '<ellipse cx="60" cy="228" rx="30" ry="6" fill="rgba(0,0,0,0.5)"/>' +
-          '<circle cx="60" cy="26" r="17" fill="#d6c9a8"/>' +
-          '<rect x="55" y="40" width="10" height="14" fill="#d6c9a8"/>' +
-          '<path class="man-top" d="M60 52 C34 52 24 88 22 120 L98 120 C96 88 86 52 60 52 Z" fill="#777" stroke="none"/>' +
-          '<path class="man-sleeves" d="M22 120 C20 96 22 74 34 62 L22 120 Z M98 120 C100 96 98 74 86 62 L98 120 Z" fill="#666" stroke="none"/>' +
-          '<path class="man-bottom" d="M22 120 L98 120 L104 196 L16 196 Z" fill="#888" stroke="none"/>' +
-          '<circle cx="26" cy="128" r="6" fill="#d6c9a8"/>' +
-          '<circle cx="94" cy="128" r="6" fill="#d6c9a8"/>' +
+          '<svg viewBox="0 0 140 260" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+          // тень-подставка
+          '<ellipse cx="70" cy="250" rx="34" ry="5" fill="rgba(0,0,0,0.4)"/>' +
+          // ноги (низ)
+          '<rect class="man-legs" x="52" y="150" width="16" height="90" rx="7" fill="#777"/>' +
+          '<rect class="man-legs" x="72" y="150" width="16" height="90" rx="7" fill="#777"/>' +
+          // голова
+          '<circle cx="70" cy="34" r="22" fill="#d6c9a8"/>' +
+          // шея
+          '<rect x="64" y="52" width="12" height="14" rx="4" fill="#d6c9a8"/>' +
+          // торс (верх) с руками
+          '<path class="man-top" d="M70 62 C46 62 34 92 34 124 L34 128 L30 132 C26 128 24 122 25 116 C26 106 30 96 40 88 L40 70 C52 60 88 60 100 70 L100 88 C110 96 114 106 115 116 C116 122 114 128 110 132 L106 128 L106 124 C106 92 94 62 70 62 Z" fill="#777"/>' +
+          // руки-кисти
+          '<circle cx="28" cy="136" r="6" fill="#d6c9a8"/>' +
+          '<circle cx="112" cy="136" r="6" fill="#d6c9a8"/>' +
+          // низ / брюки прикрывают ноги сверху
+          '<path class="man-bottom" d="M34 124 L106 124 L112 176 L104 182 L94 156 L92 178 L98 240 L86 240 L82 184 L70 184 L58 184 L54 240 L42 240 L48 178 L46 156 L36 182 L28 176 Z" fill="#888"/>' +
           '</svg>' +
           '<div class="mannequin-hint">Нажмите, чтобы изменить</div>' +
           '</div>' +
@@ -181,7 +189,7 @@
   function wirePartSwitchers(modal, sin, mannequinEl) {
     var topEl = mannequinEl.querySelector(".man-top");
     var bottomEl = mannequinEl.querySelector(".man-bottom");
-    var sleevesEl = mannequinEl.querySelector(".man-sleeves");
+    var legsEls = mannequinEl.querySelectorAll(".man-legs");
     var r = function (hex, k) {
       var n = parseInt(hex.slice(1), 16);
       var ch = function (v) { return Math.max(0, Math.min(255, Math.round(v))); };
@@ -196,7 +204,9 @@
         btn.classList.add("active");
         if (partKey === "top") topEl.style.fill = color;
         else if (partKey === "bottom") bottomEl.style.fill = color;
-        else if (partKey === "accent") sleevesEl.style.fill = r(color, 0.85);
+        else if (partKey === "accent") {
+          legsEls.forEach(function (l) { l.style.fill = color; });
+        }
       });
     });
   }

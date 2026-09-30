@@ -1,8 +1,8 @@
-// ============================================================
-//  Админ-панель: открывается кнопкой «✎» в правом нижнем углу.
-//  Все изменения сохраняются в localStorage браузера.
-//  Чтобы правки увидели все посетители после публикации,
-//  нажмите «Выгрузить данные» → скопируйте блок — см. README.
+﻿// ============================================================
+//  РђРґРјРёРЅ-РїР°РЅРµР»СЊ: РѕС‚РєСЂС‹РІР°РµС‚СЃСЏ РєРЅРѕРїРєРѕР№ В«вњЋВ» РІ РїСЂР°РІРѕРј РЅРёР¶РЅРµРј СѓРіР»Сѓ.
+//  Р’СЃРµ РёР·РјРµРЅРµРЅРёСЏ СЃРѕС…СЂР°РЅСЏСЋС‚СЃСЏ РІ localStorage Р±СЂР°СѓР·РµСЂР°.
+//  Р§С‚РѕР±С‹ РїСЂР°РІРєРё СѓРІРёРґРµР»Рё РІСЃРµ РїРѕСЃРµС‚РёС‚РµР»Рё РїРѕСЃР»Рµ РїСѓР±Р»РёРєР°С†РёРё,
+//  РЅР°Р¶РјРёС‚Рµ В«Р’С‹РіСЂСѓР·РёС‚СЊ РґР°РЅРЅС‹РµВ» в†’ СЃРєРѕРїРёСЂСѓР№С‚Рµ Р±Р»РѕРє вЂ” СЃРј. README.
 // ============================================================
 
 (function () {
@@ -34,50 +34,50 @@
     var d = draft;
     var h = "";
 
-    h += "<h4>Бренд</h4>";
-    h += field("Название", "brand_name", d.brand.name);
-    h += field("Слоган", "brand_tagline", d.brand.tagline);
+    h += "<h4>Р‘СЂРµРЅРґ</h4>";
+    h += field("РќР°Р·РІР°РЅРёРµ", "brand_name", d.brand.name);
+    h += field("РЎР»РѕРіР°РЅ", "brand_tagline", d.brand.tagline);
 
-    h += "<h4>Цвета темы</h4>";
-    h += field("Основной цвет", "c_primary", d.colors.primary);
-    h += field("Тёмный (кнопок)", "c_primaryDark", d.colors.primaryDark);
-    h += field("Фон", "c_bg", d.colors.bg);
-    h += field("Цвет текста", "c_text", d.colors.text);
-    h += field("Приглушённый текст", "c_muted", d.colors.muted);
+    h += "<h4>Р¦РІРµС‚Р° С‚РµРјС‹</h4>";
+    h += field("РћСЃРЅРѕРІРЅРѕР№ С†РІРµС‚", "c_primary", d.colors.primary);
+    h += field("РўС‘РјРЅС‹Р№ (РєРЅРѕРїРѕРє)", "c_primaryDark", d.colors.primaryDark);
+    h += field("Р¤РѕРЅ", "c_bg", d.colors.bg);
+    h += field("Р¦РІРµС‚ С‚РµРєСЃС‚Р°", "c_text", d.colors.text);
+    h += field("РџСЂРёРіР»СѓС€С‘РЅРЅС‹Р№ С‚РµРєСЃС‚", "c_muted", d.colors.muted);
 
-    h += "<h4>Главный экран</h4>";
-    h += field("Заголовок", "hero_title", d.hero.title, true);
-    h += field("Подзаголовок", "hero_subtitle", d.hero.subtitle, true);
-    h += field("Текст кнопки", "hero_buttonText", d.hero.buttonText);
-    h += field("Ссылка кнопки (например #contact)", "hero_buttonLink", d.hero.buttonLink);
+    h += "<h4>Р“Р»Р°РІРЅС‹Р№ СЌРєСЂР°РЅ</h4>";
+    h += field("Р—Р°РіРѕР»РѕРІРѕРє", "hero_title", d.hero.title, true);
+    h += field("РџРѕРґР·Р°РіРѕР»РѕРІРѕРє", "hero_subtitle", d.hero.subtitle, true);
+    h += field("РўРµРєСЃС‚ РєРЅРѕРїРєРё", "hero_buttonText", d.hero.buttonText);
+    h += field("РЎСЃС‹Р»РєР° РєРЅРѕРїРєРё (РЅР°РїСЂРёРјРµСЂ #contact)", "hero_buttonLink", d.hero.buttonLink);
 
-    h += "<h4>О нас</h4>";
-    h += field("Заголовок", "about_title", d.about.title);
-    h += field("Текст", "about_text", d.about.text, true);
+    h += "<h4>Рћ РЅР°СЃ</h4>";
+    h += field("Р—Р°РіРѕР»РѕРІРѕРє", "about_title", d.about.title);
+    h += field("РўРµРєСЃС‚", "about_text", d.about.text, true);
 
-    h += "<h4>Манекены (грехи)</h4>";
-    h += field("Заголовок секции", "sins_title", d.sins.title);
-    h += field("Подзаголовок", "sins_subtitle", d.sins.subtitle);
+    h += "<h4>РњР°РЅРµРєРµРЅС‹ (РіСЂРµС…Рё)</h4>";
+    h += field("Р—Р°РіРѕР»РѕРІРѕРє СЃРµРєС†РёРё", "sins_title", d.sins.title);
+    h += field("РџРѕРґР·Р°РіРѕР»РѕРІРѕРє", "sins_subtitle", d.sins.subtitle);
     h += '<div id="sins_editor"></div>';
 
-    h += "<h4>Частые вопросы</h4>";
-    h += field("Заголовок", "faq_title", d.faq.title);
+    h += "<h4>Р§Р°СЃС‚С‹Рµ РІРѕРїСЂРѕСЃС‹</h4>";
+    h += field("Р—Р°РіРѕР»РѕРІРѕРє", "faq_title", d.faq.title);
     h += '<div id="faq_editor"></div>';
 
-    h += "<h4>Контакты</h4>";
-    h += field("Телефон (текст)", "c_phone", d.contact.phone);
-    h += field("Телефон (ссылка, с +7...)", "c_phoneLink", d.contact.phoneLink);
-    h += field("Email (текст)", "c_email", d.contact.email);
-    h += field("Email (ссылка, mailto:)", "c_emailLink", d.contact.emailLink);
-    h += field("Адрес", "c_address", d.contact.address);
-    h += field("Текст кнопки", "c_buttonText", d.contact.buttonText);
+    h += "<h4>РљРѕРЅС‚Р°РєС‚С‹</h4>";
+    h += field("РўРµР»РµС„РѕРЅ (С‚РµРєСЃС‚)", "c_phone", d.contact.phone);
+    h += field("РўРµР»РµС„РѕРЅ (СЃСЃС‹Р»РєР°, СЃ +7...)", "c_phoneLink", d.contact.phoneLink);
+    h += field("Email (С‚РµРєСЃС‚)", "c_email", d.contact.email);
+    h += field("Email (СЃСЃС‹Р»РєР°, mailto:)", "c_emailLink", d.contact.emailLink);
+    h += field("РђРґСЂРµСЃ", "c_address", d.contact.address);
+    h += field("РўРµРєСЃС‚ РєРЅРѕРїРєРё", "c_buttonText", d.contact.buttonText);
 
-    h += "<h4>Футер</h4>";
-    h += field("Текст внизу страницы", "footer_text", d.footerText);
+    h += "<h4>Р¤СѓС‚РµСЂ</h4>";
+    h += field("РўРµРєСЃС‚ РІРЅРёР·Сѓ СЃС‚СЂР°РЅРёС†С‹", "footer_text", d.footerText);
 
     body.innerHTML = h;
 
-    // Редакторы списков
+    // Р РµРґР°РєС‚РѕСЂС‹ СЃРїРёСЃРєРѕРІ
     window.__SINS_EDITOR = null;
     window.__FAQ_EDITOR = null;
     buildSinsEditor("sins_editor", d.sins.items);
@@ -87,7 +87,7 @@
   function buildSinsEditor(containerId, sins) {
     var container = document.getElementById(containerId);
     var PART_KEYS = ["top", "bottom", "accent"];
-    var PART_LABELS = { top: "Верх", bottom: "Низ", accent: "Рукава/акцент" };
+    var PART_LABELS = { top: "Р’РµСЂС…", bottom: "РќРёР·", accent: "Р СѓРєР°РІР°/Р°РєС†РµРЅС‚" };
     function render() {
       var h = "";
       sins.forEach(function (sin, si) {
@@ -97,9 +97,9 @@
           var opts = part.options.map(function (o, oi) {
             return (
               '<div class="part-edit" data-si="' + si + '" data-pk="' + pk + '" data-oi="' + oi + '">' +
-              '<input data-f="name" value="' + esc(o.name) + '" placeholder="Имя">' +
+              '<input data-f="name" value="' + esc(o.name) + '" placeholder="РРјСЏ">' +
               '<input data-f="color" value="' + esc(o.color) + '" placeholder="#aabbcc">' +
-              '<button class="remove-btn" data-del-part="' + si + ':' + pk + ':' + oi + '">×</button>' +
+              '<button class="remove-btn" data-del-part="' + si + ':' + pk + ':' + oi + '">Г—</button>' +
               "</div>"
             );
           }).join("");
@@ -107,21 +107,21 @@
             '<div class="part-group">' +
             '<label class="mini-label">' + esc(PART_LABELS[pk]) + "</label>" +
             opts +
-            '<button class="add-btn" data-addopt="' + si + ':' + pk + '">+ Вариант</button>' +
+            '<button class="add-btn" data-addopt="' + si + ':' + pk + '">+ Р’Р°СЂРёР°РЅС‚</button>' +
             "</div>"
           );
         }).join("");
 
         h +=
           '<div class="sin-item-edit">' +
-          '<div class="field"><label>Название греха</label><input data-f="name" data-si="' + si + '" value="' + esc(sin.name) + '"></div>' +
-          '<div class="field"><label>Описание</label><textarea data-f="desc" data-si="' + si + '">' + esc(sin.desc) + "</textarea></div>" +
-          '<label class="mini-label">Детали одежды</label>' +
+          '<div class="field"><label>РќР°Р·РІР°РЅРёРµ РіСЂРµС…Р°</label><input data-f="name" data-si="' + si + '" value="' + esc(sin.name) + '"></div>' +
+          '<div class="field"><label>РћРїРёСЃР°РЅРёРµ</label><textarea data-f="desc" data-si="' + si + '">' + esc(sin.desc) + "</textarea></div>" +
+          '<label class="mini-label">Р”РµС‚Р°Р»Рё РѕРґРµР¶РґС‹</label>' +
           partsHtml +
-          '<button class="remove-btn" data-del-sin="' + si + '">Удалить грех</button>' +
+          '<button class="remove-btn" data-del-sin="' + si + '">РЈРґР°Р»РёС‚СЊ РіСЂРµС…</button>' +
           "</div>";
       });
-      h += '<button class="add-btn" id="add_sin">+ Добавить грех</button>';
+      h += '<button class="add-btn" id="add_sin">+ Р”РѕР±Р°РІРёС‚СЊ РіСЂРµС…</button>';
       container.innerHTML = h;
 
       container.querySelectorAll("input[data-si], textarea[data-si]").forEach(function (el) {
@@ -145,7 +145,7 @@
       container.querySelectorAll("[data-addopt]").forEach(function (b) {
         b.addEventListener("click", function () {
           var p = b.dataset.addopt.split(":");
-          sins[p[0]].parts[p[1]].options.push({ name: "Вариант", color: "#888888" });
+          sins[p[0]].parts[p[1]].options.push({ name: "Р’Р°СЂРёР°РЅС‚", color: "#888888" });
           render();
         });
       });
@@ -157,11 +157,11 @@
       });
       document.getElementById("add_sin").addEventListener("click", function () {
         sins.push({
-          name: "Грех", desc: "Описание",
+          name: "Р“СЂРµС…", desc: "РћРїРёСЃР°РЅРёРµ",
           parts: {
-            top: { label: "Верх", options: [{ name: "Верх", color: "#777777" }] },
-            bottom: { label: "Низ", options: [{ name: "Низ", color: "#888888" }] },
-            accent: { label: "Рукава", options: [{ name: "Рукава", color: "#666666" }] }
+            top: { label: "Р’РµСЂС…", options: [{ name: "Р’РµСЂС…", color: "#777777" }] },
+            bottom: { label: "РќРёР·", options: [{ name: "РќРёР·", color: "#888888" }] },
+            accent: { label: "Р СѓРєР°РІР°", options: [{ name: "Р СѓРєР°РІР°", color: "#666666" }] }
           }
         });
         render();
@@ -178,12 +178,12 @@
       items.forEach(function (item, i) {
         h +=
           '<div class="faq-item-edit">' +
-          '<div class="field"><label>Вопрос</label><input data-f="q" data-i="' + i + '" value="' + esc(item.q) + '"></div>' +
-          '<div class="field"><label>Ответ</label><textarea data-f="a" data-i="' + i + '">' + esc(item.a) + "</textarea></div>" +
-          '<button class="remove-btn" data-del="' + i + '">Удалить</button>' +
+          '<div class="field"><label>Р’РѕРїСЂРѕСЃ</label><input data-f="q" data-i="' + i + '" value="' + esc(item.q) + '"></div>' +
+          '<div class="field"><label>РћС‚РІРµС‚</label><textarea data-f="a" data-i="' + i + '">' + esc(item.a) + "</textarea></div>" +
+          '<button class="remove-btn" data-del="' + i + '">РЈРґР°Р»РёС‚СЊ</button>' +
           "</div>";
       });
-      h += '<button class="add-btn" id="add_' + kind + '">+ Добавить</button>';
+      h += '<button class="add-btn" id="add_' + kind + '">+ Р”РѕР±Р°РІРёС‚СЊ</button>';
       container.innerHTML = h;
 
       container.querySelectorAll("input, textarea[data-f]").forEach(function (el) {
@@ -263,13 +263,13 @@
   });
 
   resetBtn.addEventListener("click", function () {
-    if (confirm("Сбросить все изменения к исходным? Это нельзя отменить.")) {
+    if (confirm("РЎР±СЂРѕСЃРёС‚СЊ РІСЃРµ РёР·РјРµРЅРµРЅРёСЏ Рє РёСЃС…РѕРґРЅС‹Рј? Р­С‚Рѕ РЅРµР»СЊР·СЏ РѕС‚РјРµРЅРёС‚СЊ.")) {
       window.__SITE_RESET();
       location.reload();
     }
   });
 
-  // Клик вне панели не закрывает её; закрытие только по × или Esc
+  // РљР»РёРє РІРЅРµ РїР°РЅРµР»Рё РЅРµ Р·Р°РєСЂС‹РІР°РµС‚ РµС‘; Р·Р°РєСЂС‹С‚РёРµ С‚РѕР»СЊРєРѕ РїРѕ Г— РёР»Рё Esc
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && !panel.hidden) panel.hidden = true;
   });
