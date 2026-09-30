@@ -47,23 +47,36 @@
         return (
           '<div class="sin-card">' +
           '<div class="mannequin" data-sin="' + sinIndex + '" role="button" title="Сменить одежду">' +
-          '<svg viewBox="0 0 140 260" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-          // тень-подставка
-          '<ellipse cx="70" cy="250" rx="34" ry="5" fill="rgba(0,0,0,0.4)"/>' +
-          // ноги (низ)
-          '<rect class="man-legs" x="52" y="150" width="16" height="90" rx="7" fill="#777"/>' +
-          '<rect class="man-legs" x="72" y="150" width="16" height="90" rx="7" fill="#777"/>' +
-          // голова
-          '<circle cx="70" cy="34" r="22" fill="#d6c9a8"/>' +
-          // шея
-          '<rect x="64" y="52" width="12" height="14" rx="4" fill="#d6c9a8"/>' +
-          // торс (верх) с руками
-          '<path class="man-top" d="M70 62 C46 62 34 92 34 124 L34 128 L30 132 C26 128 24 122 25 116 C26 106 30 96 40 88 L40 70 C52 60 88 60 100 70 L100 88 C110 96 114 106 115 116 C116 122 114 128 110 132 L106 128 L106 124 C106 92 94 62 70 62 Z" fill="#777"/>' +
-          // руки-кисти
-          '<circle cx="28" cy="136" r="6" fill="#d6c9a8"/>' +
-          '<circle cx="112" cy="136" r="6" fill="#d6c9a8"/>' +
-          // низ / брюки прикрывают ноги сверху
-          '<path class="man-bottom" d="M34 124 L106 124 L112 176 L104 182 L94 156 L92 178 L98 240 L86 240 L82 184 L70 184 L58 184 L54 240 L42 240 L48 178 L46 156 L36 182 L28 176 Z" fill="#888"/>' +
+          '<svg viewBox="0 0 120 268" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+          // подставка
+          '<rect x="24" y="250" width="72" height="15" rx="3" fill="#17151c"/>' +
+          '<rect x="24" y="250" width="72" height="3" rx="2" fill="rgba(212,175,55,0.4)"/>' +
+          // ступни / низ брючин (отделка - accent)
+          '<path class="man-accent" d="M47 150 L53 150 L55 238 L45 238 Z" fill="#555"/>' +
+          '<path class="man-accent" d="M67 150 L73 150 L75 238 L65 238 Z" fill="#555"/>' +
+          // брюки (низ - bottom)
+          '<path class="man-bottom" d="M36 122 L84 122 L90 154 L81 160 L75 180 L72 150 L48 150 L45 180 L39 160 L30 154 Z" fill="#777"/>' +
+          // предплечья (кожа)
+          '<path d="M32 74 C27 92 25 110 25 130 L34 130 C34 110 36 94 40 82 Z" fill="#d6c9a8"/>' +
+          '<path d="M88 74 C93 92 95 110 95 130 L86 130 C86 110 84 94 80 82 Z" fill="#d6c9a8"/>' +
+          // торс-рубашка с рукавами (верх - top)
+          '<path class="man-top" d="M60 52 C44 52 36 60 33 70 L27 88 L40 90 C40 84 42 78 46 72 L60 68 L74 72 C78 78 80 84 80 90 L93 88 L87 70 C84 60 76 52 60 52 Z"/>' +
+          '<path class="man-top" d="M40 88 L30 90 L31 72 L38 71 Z"/>' +
+          '<path class="man-top" d="M80 88 L90 90 L89 72 L82 71 Z"/>' +
+          // пояс (отделка - accent)
+          '<rect class="man-accent" x="35" y="120" width="50" height="7" rx="2" fill="#c9a24b"/>' +
+          // манжеты (отделка - accent)
+          '<rect class="man-accent" x="28" y="126" width="9" height="8" rx="2" fill="#c9a24b"/>' +
+          '<rect class="man-accent" x="83" y="126" width="9" height="8" rx="2" fill="#c9a24b"/>' +
+          // пуговицы (отделка - accent)
+          '<circle class="man-accent" cx="60" cy="86" r="2" fill="#d4af37"/>' +
+          '<circle class="man-accent" cx="60" cy="100" r="2" fill="#d4af37"/>' +
+          '<circle class="man-accent" cx="60" cy="112" r="2" fill="#d4af37"/>' +
+          // воротник (отделка - accent)
+          '<path class="man-accent" d="M55 50 L65 50 L68 60 L60 66 L52 60 Z" fill="#e8e2d0"/>' +
+          // голова и шея
+          '<circle cx="60" cy="30" r="19" fill="#d6c9a8"/>' +
+          '<rect x="55" y="45" width="10" height="12" rx="2" fill="#d6c9a8"/>' +
           '</svg>' +
           '<div class="mannequin-hint">Нажмите, чтобы изменить</div>' +
           '</div>' +
@@ -131,13 +144,33 @@
       });
     });
 
-    // Манекены: клик открывает плашку с выбором деталей
+    // Манекены: применяем стартовые цвета из данных и клик открывает плашку
     var mannequins = app.querySelectorAll(".mannequin");
     mannequins.forEach(function (m) {
+      applyOutfit(m, DATA.sins.items[Number(m.dataset.sin)], null, true);
       m.addEventListener("click", function () {
         openOutfitPanel(Number(m.dataset.sin), m);
       });
     });
+  }
+
+  // Применяет цвета одежды к манекену. mode 'start' красит по первым вариантам данных.
+  function applyOutfit(mannequinEl, sin, selected, isStart) {
+    var topEl = mannequinEl.querySelector(".man-top");
+    var bottomEl = mannequinEl.querySelector(".man-bottom");
+    var accentEls = mannequinEl.querySelectorAll(".man-accent");
+    var get = function (partKey) {
+      var part = sin.parts[partKey];
+      if (!part || !part.options.length) return "#777";
+      if (selected && selected[partKey] !== undefined) {
+        var i = Number(selected[partKey]);
+        if (part.options[i]) return part.options[i].color;
+      }
+      return part.options[0].color;
+    };
+    if (topEl) topEl.style.fill = get("top");
+    if (bottomEl) bottomEl.style.fill = get("bottom");
+    accentEls.forEach(function (el) { el.style.fill = get("accent"); });
   }
 
   // Открывает модальное окно редактирования деталей одежды манекена
@@ -189,12 +222,7 @@
   function wirePartSwitchers(modal, sin, mannequinEl) {
     var topEl = mannequinEl.querySelector(".man-top");
     var bottomEl = mannequinEl.querySelector(".man-bottom");
-    var legsEls = mannequinEl.querySelectorAll(".man-legs");
-    var r = function (hex, k) {
-      var n = parseInt(hex.slice(1), 16);
-      var ch = function (v) { return Math.max(0, Math.min(255, Math.round(v))); };
-      return "rgb(" + ch((n >> 16 & 255) * k) + "," + ch((n >> 8 & 255) * k) + "," + ch((n & 255) * k) + ")";
-    };
+    var accentEls = mannequinEl.querySelectorAll(".man-accent");
     modal.querySelectorAll(".part-opt").forEach(function (btn) {
       btn.addEventListener("click", function () {
         var partKey = btn.dataset.part;
@@ -205,7 +233,7 @@
         if (partKey === "top") topEl.style.fill = color;
         else if (partKey === "bottom") bottomEl.style.fill = color;
         else if (partKey === "accent") {
-          legsEls.forEach(function (l) { l.style.fill = color; });
+          accentEls.forEach(function (el) { el.style.fill = color; });
         }
       });
     });
