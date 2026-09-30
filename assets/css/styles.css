@@ -96,6 +96,61 @@ header.site-header {
 .service-card p { color: var(--muted); margin: 0 0 16px; }
 .service-price { font-weight: 800; color: var(--primary); }
 
+/* ==========================================================
+   МАНЕКЕНЫ (грехи с переключаемой одеждой)
+   ========================================================== */
+.sins-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  margin-top: 10px;
+}
+.sin-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: color-mix(in srgb, var(--bg) 55%, #15131a);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: var(--radius);
+  padding: 22px 16px 18px;
+  box-shadow: var(--shadow);
+}
+.mannequin {
+  width: 150px;
+  color: var(--primary);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.mannequin:hover { transform: scale(1.05); }
+.mannequin svg { display: block; width: 100%; height: auto; }
+.sin-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin: 14px 0 6px;
+  letter-spacing: 0.5px;
+  color: var(--text);
+}
+.sin-desc { color: var(--muted); font-size: 0.92rem; line-height: 1.4; margin: 0 0 12px; }
+.outfit-label { color: var(--primary); font-size: 0.85rem; font-weight: 600; margin-bottom: 10px; min-height: 1.2em; }
+.outfit-dots { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+.outfit-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid rgba(212, 175, 55, 0.5);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s, border-color 0.15s;
+}
+.outfit-dot:hover { transform: scale(1.15); }
+.outfit-dot.active { border-color: var(--primary); box-shadow: 0 0 10px rgba(212, 175, 55, 0.6); }
+
+@media (max-width: 1000px) { .sins-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 760px) { .sins-grid { grid-template-columns: repeat(2, 1fr); } .mannequin { width: 120px; } }
+@media (max-width: 460px) { .sins-grid { grid-template-columns: 1fr; } }
+
 /* FAQ */
 .faq-item { max-width: 720px; margin: 0 auto 14px; }
 .faq-question {
@@ -191,7 +246,7 @@ footer.site-footer { text-align: center; padding: 30px 20px; color: var(--muted)
 }
 .field textarea { min-height: 80px; resize: vertical; }
 
-.service-item-edit, .faq-item-edit, .field-row {
+.service-item-edit, .faq-item-edit, .field-row, .sin-item-edit, .outfit-edit {
   background: #1d1b25;
   border-radius: 10px;
   padding: 12px;
@@ -200,6 +255,9 @@ footer.site-footer { text-align: center; padding: 30px 20px; color: var(--muted)
 }
 .field-row { display: flex; gap: 8px; align-items: center; }
 .field-row input { flex: 1; }
+.sins_editor .sin-item-edit { border-left: 3px solid var(--primary); }
+.mini-label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--muted); margin: 6px 0 6px; }
+.outfit-edit .field-row input { min-width: 0; }
 
 .admin-foot {
   padding: 14px 18px;

@@ -55,10 +55,10 @@
     h += field("Заголовок", "about_title", d.about.title);
     h += field("Текст", "about_text", d.about.text, true);
 
-    h += "<h4>Услуги</h4>";
-    h += field("Заголовок секции", "services_title", d.services.title);
-    h += field("Подзаголовок", "services_subtitle", d.services.subtitle);
-    h += '<div id="services_editor"></div>';
+    h += "<h4>Манекены (грехи)</h4>";
+    h += field("Заголовок секции", "sins_title", d.sins.title);
+    h += field("Подзаголовок", "sins_subtitle", d.sins.subtitle);
+    h += '<div id="sins_editor"></div>';
 
     h += "<h4>Частые вопросы</h4>";
     h += field("Заголовок", "faq_title", d.faq.title);
@@ -78,10 +78,82 @@
     body.innerHTML = h;
 
     // Редакторы списков
-    window.__SERVICES_EDITOR = null;
+    window.__SINS_EDITOR = null;
     window.__FAQ_EDITOR = null;
-    buildListEditor("services_editor", d.services.items, "services");
+    buildSinsEditor("sins_editor", d.sins.items);
     buildListEditor("faq_editor", d.faq.items, "faq");
+  }
+
+  function buildSinsEditor(containerId, sins) {
+    var container = document.getElementById(containerId);
+    function render() {
+      var h = "";
+      sins.forEach(function (sin, si) {
+        var outfits = sin.outfits
+          .map(function (o, oi) {
+            return (
+              '<div class="outfit-edit" data-si="' + si + '" data-oi="' + oi + '">' +
+              '<div class="field-row">' +
+              '<input data-f="label" value="' + esc(o.label) + '" placeholder="Название наряда">' +
+              '<input data-f="top" value="' + esc(o.top) + '" placeholder="Верх (#aabbcc)">' +
+              '<input data-f="body" value="' + esc(o.body) + '" placeholder="Низ (#ddeeff)">' +
+              '<button class="remove-btn" data-del="' + si + ':' + oi + '">×</button>' +
+              "</div>" +
+              "</div>"
+            );
+          })
+          .join("");
+        h +=
+          '<div class="sin-item-edit">' +
+          '<div class="field"><label>Название греха</label><input data-f="name" data-si="' + si + '" value="' + esc(sin.name) + '"></div>' +
+          '<div class="field"><label>Описание</label><textarea data-f="desc" data-si="' + si + '">' + esc(sin.desc) + "</textarea></div>" +
+          '<label class="mini-label">Наряды (верх = цвет точки)</label>' +
+          outfits +
+          '<button class="add-btn" data-addoutfit="' + si + '">+ Наряд</button>' +
+          '<button class="remove-btn" data-del-sin="' + si + '">Удалить грех</button>' +
+          "</div>";
+      });
+      h += '<button class="add-btn" id="add_sin">+ Добавить грех</button>';
+      container.innerHTML = h;
+
+      container.querySelectorAll("input[data-si], textarea[data-si]").forEach(function (el) {
+        el.addEventListener("input", function () {
+          var sin = sins[el.dataset.si];
+          if (el.hasAttribute("data-f") && !el.hasAttribute("data-oi")) sin[el.dataset.f] = el.value;
+        });
+      });
+      container.querySelectorAll(".outfit-edit input").forEach(function (el) {
+        el.addEventListener("input", function () {
+          var p = el.closest(".outfit-edit").dataset;
+          sins[p.si].outfits[p.oi][el.dataset.f] = el.value;
+        });
+      });
+      container.querySelectorAll("[data-del]").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var p = b.dataset.del.split(":");
+          sins[p[0]].outfits.splice(Number(p[1]), 1);
+          render();
+        });
+      });
+      container.querySelectorAll("[data-del-sin]").forEach(function (b) {
+        b.addEventListener("click", function () {
+          sins.splice(Number(b.dataset.delSin), 1);
+          render();
+        });
+      });
+      container.querySelectorAll("[data-addoutfit]").forEach(function (b) {
+        b.addEventListener("click", function () {
+          sins[b.dataset.addoutfit].outfits.push({ label: "Наряд", top: "#888", body: "#999", legs: "#555" });
+          render();
+        });
+      });
+      document.getElementById("add_sin").addEventListener("click", function () {
+        sins.push({ name: "Грех", desc: "Описание", outfits: [{ label: "Наряд", top: "#888", body: "#999", legs: "#555" }] });
+        render();
+      });
+    }
+    render();
+    window.__SINS_EDITOR = sins;
   }
 
   function buildListEditor(containerId, items, kind) {
@@ -89,22 +161,12 @@
     function render() {
       var h = "";
       items.forEach(function (item, i) {
-        if (kind === "services") {
-          h +=
-            '<div class="service-item-edit">' +
-            '<div class="field"><label>Название</label><input data-f="name" data-i="' + i + '" value="' + esc(item.name) + '"></div>' +
-            '<div class="field"><label>Описание</label><textarea data-f="desc" data-i="' + i + '">' + esc(item.desc) + "</textarea></div>" +
-            '<div class="field"><label>Цена</label><input data-f="price" data-i="' + i + '" value="' + esc(item.price) + '"></div>' +
-            '<button class="remove-btn" data-del="' + i + '">Удалить</button>' +
-            "</div>";
-        } else {
-          h +=
-            '<div class="faq-item-edit">' +
-            '<div class="field"><label>Вопрос</label><input data-f="q" data-i="' + i + '" value="' + esc(item.q) + '"></div>' +
-            '<div class="field"><label>Ответ</label><textarea data-f="a" data-i="' + i + '">' + esc(item.a) + "</textarea></div>" +
-            '<button class="remove-btn" data-del="' + i + '">Удалить</button>' +
-            "</div>";
-        }
+        h +=
+          '<div class="faq-item-edit">' +
+          '<div class="field"><label>Вопрос</label><input data-f="q" data-i="' + i + '" value="' + esc(item.q) + '"></div>' +
+          '<div class="field"><label>Ответ</label><textarea data-f="a" data-i="' + i + '">' + esc(item.a) + "</textarea></div>" +
+          '<button class="remove-btn" data-del="' + i + '">Удалить</button>' +
+          "</div>";
       });
       h += '<button class="add-btn" id="add_' + kind + '">+ Добавить</button>';
       container.innerHTML = h;
@@ -121,14 +183,13 @@
         });
       });
       document.getElementById("add_" + kind).addEventListener("click", function () {
-        items.push(kind === "services" ? { name: "", desc: "", price: "" } : { q: "", a: "" });
+        items.push({ q: "", a: "" });
         render();
       });
     }
     render();
 
-    if (kind === "services") window.__SERVICES_EDITOR = items;
-    else window.__FAQ_EDITOR = items;
+    window.__FAQ_EDITOR = items;
   }
 
   function collect() {
@@ -146,8 +207,8 @@
     draft.hero.buttonLink = g("hero_buttonLink");
     draft.about.title = g("about_title");
     draft.about.text = g("about_text");
-    draft.services.title = g("services_title");
-    draft.services.subtitle = g("services_subtitle");
+    draft.sins.title = g("sins_title");
+    draft.sins.subtitle = g("sins_subtitle");
     draft.faq.title = g("faq_title");
     draft.contact.phone = g("c_phone");
     draft.contact.phoneLink = g("c_phoneLink");
@@ -156,7 +217,7 @@
     draft.contact.address = g("c_address");
     draft.contact.buttonText = g("c_buttonText");
     draft.footerText = g("footer_text");
-    if (window.__SERVICES_EDITOR) draft.services.items = window.__SERVICES_EDITOR;
+    if (window.__SINS_EDITOR) draft.sins.items = window.__SINS_EDITOR;
     if (window.__FAQ_EDITOR) draft.faq.items = window.__FAQ_EDITOR;
   }
 
