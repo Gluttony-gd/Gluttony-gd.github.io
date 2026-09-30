@@ -6,7 +6,7 @@
   // Берём данные: из localStorage (если были правки через панель) либо из data.js
   function loadData() {
     try {
-      const saved = localStorage.getItem("site_data_v1");
+      const saved = localStorage.getItem("site_data_v2");
       if (saved) return JSON.parse(saved);
     } catch (e) {}
     return window.SITE_DATA;
@@ -204,12 +204,12 @@
   // Сохраняем данные в localStorage, чтобы админ мог обновлять страницу
   window.__SITE_SAVE = function (data) {
     try {
-      localStorage.setItem("site_data_v1", JSON.stringify(data));
+      localStorage.setItem("site_data_v2", JSON.stringify(data));
     } catch (e) {}
   };
   window.__SITE_RESET = function () {
     try {
-      localStorage.removeItem("site_data_v1");
+      localStorage.removeItem("site_data_v2");
     } catch (e) {}
   };
   window.__SITE_DATA_GET = function () {
