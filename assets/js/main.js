@@ -42,41 +42,13 @@
       ? '<a class="btn" href="' + esc(DATA.hero.buttonLink) + '">' + esc(DATA.hero.buttonText) + "</a>"
       : "";
 
-    const sinsCards = DATA.sins.items
+const sinsCards = DATA.sins.items
       .map(function (s, sinIndex) {
         return (
           '<div class="sin-card">' +
           '<div class="mannequin" data-sin="' + sinIndex + '" role="button" title="Сменить одежду">' +
-          '<svg viewBox="0 0 120 268" fill="none" xmlns="http://www.w3.org/2000/svg">' +
-          // подставка
-          '<rect x="24" y="250" width="72" height="15" rx="3" fill="#17151c"/>' +
-          '<rect x="24" y="250" width="72" height="3" rx="2" fill="rgba(212,175,55,0.4)"/>' +
-          // ступни / низ брючин (отделка - accent)
-          '<path class="man-accent" d="M47 150 L53 150 L55 238 L45 238 Z" fill="#555"/>' +
-          '<path class="man-accent" d="M67 150 L73 150 L75 238 L65 238 Z" fill="#555"/>' +
-          // брюки (низ - bottom)
-          '<path class="man-bottom" d="M36 122 L84 122 L90 154 L81 160 L75 180 L72 150 L48 150 L45 180 L39 160 L30 154 Z" fill="#777"/>' +
-          // предплечья (кожа)
-          '<path d="M32 74 C27 92 25 110 25 130 L34 130 C34 110 36 94 40 82 Z" fill="#d6c9a8"/>' +
-          '<path d="M88 74 C93 92 95 110 95 130 L86 130 C86 110 84 94 80 82 Z" fill="#d6c9a8"/>' +
-          // торс-рубашка с рукавами (верх - top)
-          '<path class="man-top" d="M60 52 C44 52 36 60 33 70 L27 88 L40 90 C40 84 42 78 46 72 L60 68 L74 72 C78 78 80 84 80 90 L93 88 L87 70 C84 60 76 52 60 52 Z"/>' +
-          '<path class="man-top" d="M40 88 L30 90 L31 72 L38 71 Z"/>' +
-          '<path class="man-top" d="M80 88 L90 90 L89 72 L82 71 Z"/>' +
-          // пояс (отделка - accent)
-          '<rect class="man-accent" x="35" y="120" width="50" height="7" rx="2" fill="#c9a24b"/>' +
-          // манжеты (отделка - accent)
-          '<rect class="man-accent" x="28" y="126" width="9" height="8" rx="2" fill="#c9a24b"/>' +
-          '<rect class="man-accent" x="83" y="126" width="9" height="8" rx="2" fill="#c9a24b"/>' +
-          // пуговицы (отделка - accent)
-          '<circle class="man-accent" cx="60" cy="86" r="2" fill="#d4af37"/>' +
-          '<circle class="man-accent" cx="60" cy="100" r="2" fill="#d4af37"/>' +
-          '<circle class="man-accent" cx="60" cy="112" r="2" fill="#d4af37"/>' +
-          // воротник (отделка - accent)
-          '<path class="man-accent" d="M55 50 L65 50 L68 60 L60 66 L52 60 Z" fill="#e8e2d0"/>' +
-          // голова и шея
-          '<circle cx="60" cy="30" r="19" fill="#d6c9a8"/>' +
-          '<rect x="55" y="45" width="10" height="12" rx="2" fill="#d6c9a8"/>' +
+          '<svg viewBox="0 0 150 268" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+          buildMannequin(sinIndex) +
           '</svg>' +
           '<div class="mannequin-hint">Нажмите, чтобы изменить</div>' +
           '</div>' +
@@ -171,6 +143,70 @@
     if (topEl) topEl.style.fill = get("top");
     if (bottomEl) bottomEl.style.fill = get("bottom");
     accentEls.forEach(function (el) { el.style.fill = get("accent"); });
+  }
+
+  // Базовая фигура манекена (одежда) + поза (руки) по индексу греха.
+  // Позы: 0 Гордыня, 1 Жадность, 2 Зависть, 3 Гнев, 4 Похоть, 5 Чревоугодие, 6 Лень
+  function buildMannequin(si) {
+    var skin = '#d6c9a8';
+    var base =
+      '<rect class="man-accent" x="34" y="250" width="82" height="15" rx="3" fill="#17151c"/>' +
+      '<rect class="man-accent" x="34" y="250" width="82" height="3" rx="2" fill="rgba(212,175,55,0.4)"/>' +
+      // брюки (низ)
+      '<path class="man-bottom" d="M46 122 L104 122 L110 154 L101 160 L95 184 L92 150 L58 150 L55 184 L49 160 L40 154 Z"/>' +
+      // нижние брючины (акцент)
+      '<path class="man-accent" d="M56 150 L62 150 L64 236 L54 236 Z"/>' +
+      '<path class="man-accent" d="M88 150 L94 150 L96 236 L86 236 Z"/>' +
+      // торс-рубашка центральная часть (верх)
+      '<path class="man-top" d="M75 52 C62 52 56 58 54 68 L48 86 L60 88 C60 82 62 78 66 72 L84 72 C88 78 90 82 90 88 L102 86 L96 68 C94 58 88 52 75 52 Z"/>' +
+      // пояс (акцент)
+      '<rect class="man-accent" x="43" y="120" width="64" height="7" rx="2"/>' +
+      // манжеты
+      '<rect class="man-accent" x="36" y="126" width="11" height="9" rx="2"/>' +
+      '<rect class="man-accent" x="103" y="126" width="11" height="9" rx="2"/>' +
+      // пуговицы
+      '<circle class="man-accent" cx="75" cy="86" r="2.2"/>' +
+      '<circle class="man-accent" cx="75" cy="100" r="2.2"/>' +
+      '<circle class="man-accent" cx="75" cy="112" r="2.2"/>' +
+      // воротник
+      '<path class="man-accent" d="M69 50 L81 50 L84 60 L75 67 L66 60 Z"/>' +
+      // голова и шея
+      '<circle cx="75" cy="28" r="20" fill="' + skin + '"/>' +
+      '<rect x="70" y="44" width="11" height="13" rx="3" fill="' + skin + '"/>';
+    // Позы рук — возвращаем SVG-элементы рук (кожа + рукава как верх)
+    var arms = buildPose(si);
+    return base + arms;
+  }
+
+  // Возвращает SVG-разметку рук для заданной позы греха.
+  // Руки рисуются нейтральным цветом поверх одежды, чтобы жест был читаем.
+  function buildPose(si) {
+    var skin = '#d6c9a8';
+    function arm(sx, sy, lx, ly, hx, hy, w) {
+      var a1 = Math.atan2(ly - sy, lx - sx), px1 = Math.sin(a1) * w / 2, py1 = Math.cos(a1) * w / 2;
+      var a2 = Math.atan2(hy - ly, hx - lx), px2 = Math.sin(a2) * w / 2, py2 = Math.cos(a2) * w / 2;
+      var seg = function (x0, y0, x1, y1, px, py) { return [(x0 + px), (y0 - py), (x1 + px), (y1 - py), (x1 - px), (y1 + py), (x0 - px), (y0 + py)]; };
+      var pts = [].concat(seg(sx, sy, lx, ly, px1, py1), seg(lx, ly, hx, hy, px2, py2));
+      return '<polygon points="' + pts.join(' ') + '" fill="#9a9aab"/>' +
+             '<circle cx="' + hx + '" cy="' + hy + '" r="' + Math.round(w * 0.6) + '" fill="' + skin + '"/>';
+    }
+    var poses = [
+      // 0 Гордыня: руки в боки (кисти широко на талии 122)
+      arm(57, 68, 40, 90, 44, 122, 7) + arm(93, 68, 110, 90, 106, 122, 7),
+      // 1 Жадность: руки перед грудью вместе
+      arm(57, 68, 60, 88, 73, 102, 7) + arm(93, 68, 90, 88, 77, 102, 7),
+      // 2 Зависть: правая к подбородку, левая вниз
+      arm(57, 68, 50, 88, 48, 120, 7) + arm(93, 68, 100, 80, 88, 52, 7),
+      // 3 Гнев: обе руки-кулаки подняты над головой
+      arm(57, 68, 42, 56, 44, 34, 8) + arm(93, 68, 108, 56, 106, 34, 8),
+      // 4 Похоть: одна на бедре, другая к волосам
+      arm(57, 68, 50, 92, 62, 120, 7) + arm(93, 68, 104, 82, 86, 38, 7),
+      // 5 Чревоугодие: руки широко обхватывают живот
+      arm(57, 68, 58, 98, 66, 136, 7) + arm(93, 68, 92, 98, 84, 136, 7),
+      // 6 Лень: одна вниз, другая на поясе
+      arm(57, 68, 50, 96, 46, 140, 7) + arm(93, 68, 102, 88, 98, 122, 7)
+    ];
+    return poses[si] || poses[0];
   }
 
   // Открывает модальное окно редактирования деталей одежды манекена
