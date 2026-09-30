@@ -61,10 +61,10 @@ window.SITE_DATA = {
   // Контакты
   contact: {
     title: "Связаться с нами",
-    phone: "+7 (900) 000-00-00",
-    phoneLink: "tel:+79000000000",
-    email: "mail@example.com",
-    emailLink: "mailto:mail@example.com",
+    phone: "+7 (961) 107-74-21",
+    phoneLink: "tel:+79611077421",
+    email: "bs1957166@bk.ru",
+    emailLink: "mailto:bs1957166@bk.ru",
     address: "г. Москва, ул. Примерная, 1",
     buttonText: "Написать нам"
   },
