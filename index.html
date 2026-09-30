@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Мой продукт</title>
+  <meta name="description" content="Описание сайта">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+  <!-- контент рендерится из data.js через main.js -->
+  <div id="app"></div>
+
+  <!-- кнопка входа в админ-панель -->
+  <button id="admin-toggle" title="Редактировать сайт">✎</button>
+
+  <!-- админ-панель -->
+  <div id="admin-panel" hidden>
+    <div class="admin-head">
+      <strong>Редактирование сайта</strong>
+      <button id="admin-close">×</button>
+    </div>
+    <div class="admin-body" id="admin-body"></div>
+    <div class="admin-foot">
+      <button id="admin-reset" class="btn ghost">Сбросить</button>
+      <button id="admin-save" class="btn primary">Сохранить</button>
+    </div>
+  </div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/admin.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
