@@ -72,7 +72,7 @@ const sinsCards = DATA.sins.items
 
     app.innerHTML =
       '<header class="site-header"><div class="container header-inner">' +
-      '<a class="logo" href="#">' + esc(DATA.brand.name) + "</a>" +
+      '<a class="logo" href="#"><img class="logo-img" src="assets/img/logo.png" alt="' + esc(DATA.brand.name) + '"></a>' +
       "</div></header>" +
 
       '<section class="hero"><div class="container">' +
